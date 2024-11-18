@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser'
 import express from 'express'
 import cors from 'cors'
-import { ProductsRoute } from './routes/products'
+import { productsRoute } from './routes/products'
 
 const app = express()
 
@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
 
-ProductsRoute(app)
+productsRoute(app)
 app.get('/', (_req, res) => {
   res.send('Hello World!')
 })
