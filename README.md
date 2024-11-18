@@ -8,8 +8,22 @@ This is the Bootcamp's Project Monorepo.
 - `client`: a react [vite](https://vitejs.dev) ts app
 - `@repo/eslint-config`: shared `eslint` configurations
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- 
+## Homework Pull Requests
+
+This section contains the pull requests created as part of the bootcamp assignments:
+
+- [Pull Request Homework 3](https://github.com/DiAmb/typescript-fullstack-bootcamp-project/pull/1)
+    - The Database schema should be for a store. You must design a schema that includes products, variants, and collections.
+    - The Database schema should be defined using Prisma ORM.
+    - The Express.js API must use Prisma ORM with Typescript to query the data from the database.
+    - Create Express.js routes for creating, reading, updating and deleting products in the database.
+
+
 
 ## Get Started
+
+
 
 ### Pre Requisites
 
