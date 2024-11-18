@@ -10,4 +10,5 @@ export function productsRoute(app: Express): void {
   router.get('/:id', productController.getProductById)
   router.post('/', productController.createProduct)
   router.put('/:id', productController.updateProduct)
+  router.delete('/:id', productController.deleteProduct)
 }

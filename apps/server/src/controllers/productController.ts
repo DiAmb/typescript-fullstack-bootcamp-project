@@ -59,4 +59,22 @@ export class ProductController {
       }
     }
   }
+  async deleteProduct(req: Request, res: Response) {
+    try {
+      const id = Number(req.params.id)
+      const result = await productService.deleteProduct(id)
+
+      if (!result) {
+        return res.status(404).json({ error: 'Producto no encontrado' })
+      }
+
+      return res.json({ message: result.message, id: result.id })
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return res.status(500).json({ error: error.message })
+      } else {
+        return res.status(500).json({ error: 'Unknown error occurred' })
+      }
+    }
+  }
 }
