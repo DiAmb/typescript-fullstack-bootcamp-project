@@ -2,20 +2,28 @@ import bodyParser from 'body-parser'
 import express from 'express'
 import cors from 'cors'
 import { productsRoute } from './routes/products'
+import { config } from './config'
+import { healthRoute } from './routes/health'
+import { staticRoute } from './routes/static'
+import { errorHandler } from './middlewares/error-handler'
+import { collectionsRoute } from './routes/collections'
 
 const app = express()
 
+// Parsers
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
 
+// Routes
+staticRoute(app)
+healthRoute(app)
 productsRoute(app)
-app.get('/', (_req, res) => {
-  res.send('Hello World!')
-})
+collectionsRoute(app)
 
-const port = process.env.PORT || 5001
+app.use(errorHandler)
 
-app.listen(port, () => {
-  console.log(`Server API running on http://localhost:${port}`)
+// Listener
+app.listen(config.port, () => {
+  console.log(`Server API listening on http://localhost:${config.port}`)
 })
