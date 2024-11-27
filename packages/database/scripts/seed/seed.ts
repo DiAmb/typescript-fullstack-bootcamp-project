@@ -2,11 +2,17 @@ import { PrismaClient } from '../../prisma/prisma-client'
 import { faker } from '@faker-js/faker'
 
 export async function seed(prisma: PrismaClient) {
-  const collectionNames = ['Casual Wear', 'Technology', 'Home and Kitchen']
+  const collectionNames = ['Casual Wear', 'Animals', 'Home and Kitchen']
   const productCategories = {
     'Casual Wear': ['T-Shirt', 'Jeans', 'Jacket', 'Sweater'],
-    Technology: ['Smartphone', 'Laptop', 'Headphones', 'Tablet'],
+    Animals: ['Dog Collar', 'Cat Toy', 'Bird Cage', 'Fish Tank'],
     'Home and Kitchen': ['Blender', 'Pan', 'Knife Set', 'Dish Set'],
+  }
+
+  const imageCategories = {
+    'Casual Wear': 'fashion',
+    Technology: 'animals',
+    'Home and Kitchen': 'food',
   }
 
   await prisma.collection.createMany({
@@ -22,12 +28,13 @@ export async function seed(prisma: PrismaClient) {
     const productName =
       faker.helpers.arrayElement(productCategories[category]) +
       ` ${faker.color.human()}`
+    const imageCategory = imageCategories[category]
 
     const product = await prisma.product.create({
       data: {
         name: productName,
         description: faker.commerce.productDescription(),
-        image: faker.image.url(),
+        image: faker.image.urlLoremFlickr({ category: imageCategory }),
         options: {
           create: [
             {
@@ -57,7 +64,7 @@ export async function seed(prisma: PrismaClient) {
           productId: product.id,
           name: `${productName} - Red S`,
           description: faker.lorem.sentences(2),
-          image: faker.image.url(),
+          image: faker.image.urlLoremFlickr({ category: imageCategory }),
           sku: faker.string.numeric(10),
           price: faker.number.int({ min: 1000, max: 5000 }),
           stock: faker.number.int({ min: 0, max: 100 }),
@@ -68,7 +75,7 @@ export async function seed(prisma: PrismaClient) {
           productId: product.id,
           name: `${productName} - Blue M`,
           description: faker.lorem.sentences(2),
-          image: faker.image.url(),
+          image: faker.image.urlLoremFlickr({ category: imageCategory }),
           sku: faker.string.numeric(10),
           price: faker.number.int({ min: 1000, max: 5000 }),
           stock: faker.number.int({ min: 0, max: 100 }),
@@ -79,7 +86,7 @@ export async function seed(prisma: PrismaClient) {
           productId: product.id,
           name: `${productName} - Green L`,
           description: faker.lorem.sentences(2),
-          image: faker.image.url(),
+          image: faker.image.urlLoremFlickr({ category: imageCategory }),
           sku: faker.string.numeric(10),
           price: faker.number.int({ min: 1000, max: 5000 }),
           stock: faker.number.int({ min: 0, max: 100 }),
