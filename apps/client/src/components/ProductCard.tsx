@@ -11,20 +11,28 @@ export function ProductCard({ product }: ProductCardProps) {
     <Link
       to={`/product/${product.id}`}
       key={product.id}
-      className="group border border-slate-200 rounded-xl overflow-hidden hover:border-slate-500 transition-all bg-slate-50 p-3 pb-6"
+      className="group border border-slate-200 dark:border-gray-600 rounded-lg overflow-hidden hover:border-blue-500 transition-all bg-white dark:bg-gray-800 p-4 shadow-lg dark:shadow-md"
     >
-      <div className="overflow-hidden rounded">
+      {/* Image */}
+      <div className="overflow-hidden rounded-md">
         <img
-          className="transform transition-transform duration-300 ease-in-out group-hover:scale-105 w-full h-full object-cover"
+          className="transform transition-transform duration-300 ease-in-out group-hover:scale-105 w-full h-48 object-cover"
           src={product.image ?? undefined}
+          alt={product.name}
         />
       </div>
+
+      {/* Product Info */}
       <div className="mt-4">
-        <h2 className="font-bold mb-1 text-lg">{product.name}</h2>
-        <p className="text-xl font-bold text-blue-800 bg-sky-100 flex w-min rounded px-1">
+        <h2 className="font-bold text-lg text-gray-800 dark:text-gray-100 mb-2">
+          {product.name}
+        </h2>
+        <p className="text-blue-700 dark:text-blue-400 text-xl font-semibold">
           {formatPrice(product.price)}
         </p>
-        <p className="text-sm text-slate-700 mt-6">{product.description}</p>
+        <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">
+          {product.description}
+        </p>
       </div>
     </Link>
   )

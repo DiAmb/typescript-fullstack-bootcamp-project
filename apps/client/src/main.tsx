@@ -7,6 +7,9 @@ import './index.css'
 import { routeTree } from './routeTree.gen'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
+// Import CartProvider
+import { CartProvider } from './context/CartContext'
+
 const queryClient = new QueryClient()
 
 // Create a new router instance
@@ -26,7 +29,9 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <CartProvider>
+          <RouterProvider router={router} />
+        </CartProvider>
       </QueryClientProvider>
     </StrictMode>,
   )

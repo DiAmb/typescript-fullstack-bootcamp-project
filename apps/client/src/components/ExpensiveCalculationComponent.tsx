@@ -5,7 +5,6 @@ const ExpensiveCalculationComponent = () => {
   const [numbers, setNumbers] = useState<number[]>([1, 2, 3, 4, 5])
 
   const totalSum = numbers.reduce((sum, num) => sum + num, 0)
-  console.log('Calculando la suma...')
 
   return (
     <div>

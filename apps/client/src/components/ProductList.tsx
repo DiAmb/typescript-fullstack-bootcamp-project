@@ -12,13 +12,8 @@ export const ProductList = () => {
   }
 
   return (
-    <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(250px,1fr))]">
+    <div className="grid gap-6 grid-cols-[repeat(auto-fill,_minmax(250px,1fr))]">
       {data.data.map((item) => (
-        /*<div className="item" key={item.id}>
-                    <img src={item.image ?? undefined}></img>
-                    <h2>{item.name}</h2>
-                    <p>{item.description ?? undefined}</p>
-                </div>*/
         <ProductCard key={item.id} product={item} />
       ))}
     </div>

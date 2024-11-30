@@ -9,6 +9,8 @@ import { Suspense } from 'react'
 import { ProductsQuerySchema } from '@repo/schemas'
 
 import { SearchInput } from '../components/SearchInput'
+import LoadingIndicator from '../components/LoadingIndicator'
+import Footer from '../components/Footer'
 
 export const Route = createFileRoute('/search')({
   component: SearchPage,
@@ -36,19 +38,30 @@ export const Route = createFileRoute('/search')({
 
 function SearchPage() {
   return (
-    <div className="flex justify-center container mx-auto gap-12 py-12">
-      <aside className="flex flex-col gap-6 w-full max-w-[200px]">
-        <Collections />
-        <Sort />
-      </aside>
-      <main className="flex-1">
-        <div className="flex justify-end mb-4">
-          <SearchInput />
-        </div>
-        <Suspense fallback="Loading...">
-          <ProductList />
-        </Suspense>
-      </main>
+    <div className="dark:bg-gray-900 pt-24 min-h-screen flex flex-col">
+      <div className="flex flex-col md:flex-row gap-12 flex-1">
+        {/* Sidebar */}
+        <aside className="flex flex-col gap-6 max-w-52 ml-2 mb-12 bg-gray-100 dark:bg-gray-800 rounded-xl p-4 shadow-md">
+          <Collections />
+          <Sort />
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex-1 mr-8 mb-12">
+          {/* Search Input */}
+          <div className="flex justify-end mb-6 ">
+            <SearchInput />
+          </div>
+
+          {/* Product List */}
+          <Suspense fallback={<LoadingIndicator />}>
+            <ProductList />
+          </Suspense>
+        </main>
+      </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }
@@ -61,14 +74,14 @@ function Collections() {
   }
 
   return (
-    <nav>
-      <h3 className="text-xs px-3 w-full text-slate-500">Collections</h3>
-      <ul>
+    <nav className=" dark:text-white">
+      <h3 className="text-sm font-semibold text-slate-500 ">Collections</h3>
+      <ul className="space-y-2">
         <li>
           <FilterOption filterKey="collection" name="All" value={undefined} />
         </li>
         {data.data.map((item) => (
-          <li key={item.id}>
+          <li key={item.id} className="hover:text-blue-700">
             <FilterOption
               filterKey="collection"
               name={item.name}
@@ -83,9 +96,9 @@ function Collections() {
 
 function Sort() {
   return (
-    <nav>
-      <h3 className="text-xs px-3 w-full text-slate-500">Sort</h3>
-      <ul>
+    <nav className="space-y-4 dark:text-white">
+      <h3 className="text-sm font-semibold text-slate-500">Sort</h3>
+      <ul className="space-y-2">
         <li>
           <FilterOption
             filterKey="sort"

@@ -6,8 +6,6 @@ type ItemListProps = {
 }
 
 const ItemList = ({ items, addItem }: ItemListProps) => {
-  console.log('Renderizando ItemList')
-
   return (
     <div>
       <button
@@ -29,7 +27,6 @@ const ItemContainer = () => {
   const [items, setItems] = useState<string[]>([])
 
   const addItem = () => {
-    console.log('aqui')
     setItems((prevItems) => [...prevItems, `Item ${prevItems.length + 1}`])
   }
 
