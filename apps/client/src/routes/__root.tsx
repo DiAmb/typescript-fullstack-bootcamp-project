@@ -5,8 +5,8 @@ import {
   useLocation,
 } from '@tanstack/react-router'
 import { QueryClient } from '@tanstack/react-query'
-import { useState, useContext } from 'react'
-import { CartProvider, CartContext } from '../context/CartContext'
+import { useState, useContext, useEffect } from 'react'
+import { CartContext } from '../context/CartContext'
 import Cart from '../components/Cart'
 
 type RootContext = {
@@ -16,8 +16,29 @@ type RootContext = {
 export const Route = createRootRouteWithContext<RootContext>()({
   component: () => {
     const [isCartOpen, setIsCartOpen] = useState(false)
+    const [isDarkMode, setIsDarkMode] = useState(false)
     const location = useLocation()
     const { cartItems } = useContext(CartContext)
+
+    const toggleTheme = () => {
+      setIsDarkMode((prev) => !prev)
+      if (isDarkMode) {
+        document.documentElement.classList.remove('dark')
+        localStorage.setItem('theme', 'light')
+      } else {
+        document.documentElement.classList.add('dark')
+        localStorage.setItem('theme', 'dark')
+      }
+    }
+
+    useEffect(() => {
+      // Aplicar el tema guardado al cargar
+      const savedTheme = localStorage.getItem('theme')
+      if (savedTheme === 'dark') {
+        setIsDarkMode(true)
+        document.documentElement.classList.add('dark')
+      }
+    }, [])
 
     return (
       <>
@@ -31,7 +52,7 @@ export const Route = createRootRouteWithContext<RootContext>()({
               />
             </Link>
 
-            <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse items-center">
+            <div className="flex md:order-2 items-center gap-x-4 px-4 md:space-x-0 rtl:space-x-reverse ">
               <button
                 type="button"
                 onClick={() => setIsCartOpen(!isCartOpen)}
@@ -44,9 +65,18 @@ export const Route = createRootRouteWithContext<RootContext>()({
                 />
                 <span className="ml-2">Cart</span>
 
-                <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
-                  {cartItems.length}
-                </span>
+                {cartItems.length > 0 && (
+                  <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                    {cartItems.length}
+                  </span>
+                )}
+              </button>
+
+              <button
+                onClick={toggleTheme}
+                className="ml-4 text-gray-800 dark:text-gray-200 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 px-4 py-2 rounded-lg "
+              >
+                {isDarkMode ? '☀️ Light' : '🌙 Dark'}
               </button>
             </div>
 
@@ -59,7 +89,7 @@ export const Route = createRootRouteWithContext<RootContext>()({
                   <Link
                     to="/"
                     aria-current="page"
-                    className={`block py-2 px-3 ${location.pathname === '/' ? 'text-blue-500 dark:text-blue-600' : 'text-gray-900'} rounded  hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                    className={`block py-2 px-3 ${location.pathname === '/' ? 'text-blue-500' : 'text-gray-900 dark:text-white'} rounded  hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
                   >
                     Home
                   </Link>
@@ -68,7 +98,7 @@ export const Route = createRootRouteWithContext<RootContext>()({
                   <Link
                     to="/about"
                     aria-current="page"
-                    className={`block py-2 px-3 ${location.pathname === '/about' ? 'text-blue-500 dark:text-blue-600' : 'text-gray-900'} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                    className={`block py-2 px-3 ${location.pathname === '/about' ? 'text-blue-500' : 'text-gray-900 dark:text-white'} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
                   >
                     About
                   </Link>
@@ -77,7 +107,7 @@ export const Route = createRootRouteWithContext<RootContext>()({
                   <Link
                     to="/search"
                     aria-current="page"
-                    className={`block py-2 px-3  ${location.pathname === '/search' ? 'text-blue-500 dark:text-blue-600' : 'text-gray-900'} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
+                    className={`block py-2 px-3  ${location.pathname === '/search' ? 'text-blue-500' : 'text-gray-900 dark:text-white'} rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500  dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700`}
                   >
                     Search
                   </Link>
