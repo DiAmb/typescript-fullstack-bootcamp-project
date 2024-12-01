@@ -1,80 +1,36 @@
-import { ProductService } from './../services/ProductService'
 import { Request, Response } from 'express'
+import { ProductsService } from '../services/ProductService'
 
-const productService = new ProductService()
+const productService = new ProductsService()
 
 export class ProductController {
   async getAllProducts(req: Request, res: Response) {
-    try {
-      const result = await productService.getAllProducts()
-      return res.json({ result })
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return res.status(500).json({ error: error.message })
-      } else {
-        return res.status(500).json({ error: 'Unknown error occurred' })
-      }
-    }
+    const products = await productService.getAllProducts()
+    res.json(products)
   }
 
   async getProductById(req: Request, res: Response) {
-    try {
-      const id = Number(req.params.id)
-      const result = await productService.getProductById(id)
-      return res.json({ result })
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return res.status(500).json({ error: error.message })
-      } else {
-        return res.status(500).json({ error: 'Unknown error occurred' })
-      }
-    }
+    const id = parseInt(req.params.id)
+    const product = await productService.getProductById(id)
+    res.json(product)
   }
 
   async createProduct(req: Request, res: Response) {
-    try {
-      const data = req.body
-      const result = await productService.createProduct(data)
-      return res.json({ result })
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return res.status(500).json({ error: error.message })
-      } else {
-        return res.status(500).json({ error: 'Unknown error occurred' })
-      }
-    }
+    const productData = req.body
+    const product = await productService.createProduct(productData)
+    res.json(product)
   }
 
   async updateProduct(req: Request, res: Response) {
-    try {
-      const id = Number(req.params.id)
-      const data = req.body
-      const result = await productService.updateProduct(id, data)
-      return res.json({ result })
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return res.status(500).json({ error: error.message })
-      } else {
-        return res.status(500).json({ error: 'Unknown error occurred' })
-      }
-    }
+    const id = parseInt(req.params.id)
+    const productData = req.body
+    const product = await productService.updateProduct(id, productData)
+    res.json(product)
   }
+
   async deleteProduct(req: Request, res: Response) {
-    try {
-      const id = Number(req.params.id)
-      const result = await productService.deleteProduct(id)
-
-      if (!result) {
-        return res.status(404).json({ error: 'Producto no encontrado' })
-      }
-
-      return res.json({ message: result.message, id: result.id })
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        return res.status(500).json({ error: error.message })
-      } else {
-        return res.status(500).json({ error: 'Unknown error occurred' })
-      }
-    }
+    const id = parseInt(req.params.id)
+    await productService.deleteProduct(id)
+    res.json({ message: 'Product deleted successfully' })
   }
 }

@@ -16,9 +16,15 @@
     "db:stop": "docker-compose down",
     "db:generate": "prisma generate",
     "db:migrate": "prisma db push --skip-generate",
-    "db:seed": "tsx ./src/seed.ts"
+    "db:seed": "tsx ./scripts/seed/index.ts",
+    "db:cleanup": "tsx ./scripts/cleanup/index.ts"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./seed": "./scripts/seed/seed.ts",
+    "./cleanup": "./scripts/cleanup/cleanup.ts"
   }
 }

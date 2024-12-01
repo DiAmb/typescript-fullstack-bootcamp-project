@@ -1,14 +1,56 @@
 import express, { Express } from 'express'
-import { ProductController } from '../../controllers/productController'
+import { ProductsService } from '../../services/products'
+
+import { validateQuery } from '../../middlewares/validate-query'
+import { validateParams } from '../../middlewares/validate-params'
+import {
+  GetProductResponse,
+  ListProductsResponse,
+  ProductQuery,
+  ProductQuerySchema,
+  ProductsQuerySchema,
+} from '@repo/schemas'
 
 export function productsRoute(app: Express): void {
+  const productsService = new ProductsService()
   const router = express.Router()
-  const productController = new ProductController()
   app.use('/api/products', router)
 
-  router.get('/', productController.getAllProducts)
-  router.get('/:id', productController.getProductById)
-  router.post('/', productController.createProduct)
-  router.put('/:id', productController.updateProduct)
-  router.delete('/:id', productController.deleteProduct)
+  router.get(
+    '/',
+    validateQuery(ProductsQuerySchema),
+    async function (req, res, next) {
+      try {
+        const result = await productsService.list(req.query)
+        const response: ListProductsResponse = {
+          status: 'success',
+          data: result,
+        }
+
+        res.status(200).json(response)
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  router.get(
+    '/:id',
+    validateParams(ProductQuerySchema),
+    async function (req, res, next) {
+      try {
+        const result = await productsService.get(
+          req.params as unknown as ProductQuery,
+        )
+        const response: GetProductResponse = {
+          status: 'success',
+          data: result,
+        }
+
+        res.status(200).json(response)
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
 }
