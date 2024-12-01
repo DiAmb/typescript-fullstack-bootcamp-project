@@ -19,6 +19,17 @@ This section contains the pull requests created as part of the bootcamp assignme
     - The Express.js API must use Prisma ORM with Typescript to query the data from the database.
     - Create Express.js routes for creating, reading, updating and deleting products in the database.
 
+- [Pull Request Homework 4](https://github.com/DiAmb/typescript-fullstack-bootcamp-project/pull/2)
+  - Create home, about, and search pages:
+    - **Home Page**: Developed a welcoming UI that showcases featured products and includes quick links for navigation.
+    - **About Page**: Added detailed descriptions of the project and team, providing a user-friendly overview.
+    - **Search Page**: Implemented a functional search bar with suggestions and filters to enhance user experience.
+  - **Shopping Cart Functionality**: 
+    - Added a cart system that allows users to add products in individual quantities and remove them as needed.
+    - Integrated a badge displaying the total items in the cart (only visible when items are present).
+  - **UI Improvements with Dark Mode**:
+    - Implemented a *dark mode toggle* using Tailwind CSS for better accessibility and user comfort.
+    - Styled all pages to ensure consistency in light and dark modes.
 
 
 ## Get Started
