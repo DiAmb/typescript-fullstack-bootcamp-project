@@ -7,6 +7,9 @@ export function errorHandler(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction,
 ): void {
-  res.status(500)
-  res.json('Internal server error')
+  if (err.message === 'Product not found') {
+    res.status(404).json({ error: err.message })
+  } else {
+    res.status(500).json({ error: 'Internal server error' })
+  }
 }

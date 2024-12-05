@@ -9,7 +9,7 @@ export const validateParams =
     if (!result.success) {
       return res.status(400).json({
         message: 'Path parameters validation error.',
-        errors: result.error.issues,
+        details: result.error.issues,
       })
     }
 
