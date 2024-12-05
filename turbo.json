@@ -36,6 +36,7 @@
     },
     "db:migrate": {
       "cache": false
-    }
+    },
+    "test": {}
   }
 }
