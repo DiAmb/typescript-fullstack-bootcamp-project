@@ -30,6 +30,38 @@ This section contains the pull requests created as part of the bootcamp assignme
   - **UI Improvements with Dark Mode**:
     - Implemented a *dark mode toggle* using Tailwind CSS for better accessibility and user comfort.
     - Styled all pages to ensure consistency in light and dark modes.
+      
+- [Pull Request Homework 5](https://github.com/DiAmb/typescript-fullstack-bootcamp-project/pull/3)
+    - **ProductCard Component Tests**:
+        - **Test**: Verifies that the product name, description, and image are correctly displayed for a valid product.
+        - **Test**: Verifies the behavior when no image is provided for the product (ensures fallback mechanism works).
+        - **Test**: Checks the proper display of long product names and descriptions, ensuring they fit within the UI without breaking.
+    
+    - **collectionsQueryOptions Test**:
+        - **Test**: Verifies that the collectionsQueryOptions function returns the correct structure.
+        - **Test**: Mocks the API response for a successful fetch and validates the returned data.
+
+    - **formatPrice Function Test**:
+        - **Test**: Ensures the price formatting function correctly converts cents into a currency string.
+        - **Test**: Verifies that the function throws an error when negative values or decimal prices are passed.
+
+    - **getProductQueryOptions Test**:
+        - **Test**: Verifies the structure of query options when a product ID is passed.
+        - **Test**: Mocks the API response and verifies that the fetch operation completes successfully.
+        - **Test**: Ensures that an error is thrown when the fetch operation fails.
+
+    - **productsQueryOptions Test**:
+        - **Test**: Validates the query structure for product search based on the provided search query.
+        - **Test**: Ensures the function handles missing optional parameters correctly.
+        - **Test**: Confirms the proper URL generation and data fetching with mocked API responses.
+
+    - **Integration Tests**:
+        - **Supertest ProductsRoute (Server-side)**:
+            - **Test**: Verifies that the `GET /api/products` endpoint correctly returns a list of products.
+            - **Test**: Confirms that `GET /api/products/:id` returns the correct product when a valid ID is passed.
+            - **Test**: Ensures a 404 response is returned when a non-existent product ID is requested.
+            - **Test**: Verifies that a 400 error is returned for an invalid product ID format.
+            - Mocked the `ProductsService` to simulate real-world API interactions and handle product fetching in all test scenarios.
 
 
 ## Get Started
