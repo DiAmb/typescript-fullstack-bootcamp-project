@@ -1,36 +1,40 @@
 import { Request, Response } from 'express'
 import { ProductsService } from '../services/ProductService'
 
-const productService = new ProductsService()
-
 export class ProductController {
+  private productService: ProductsService
+
+  constructor(productService: ProductsService) {
+    this.productService = productService
+  }
+
   async getAllProducts(req: Request, res: Response) {
-    const products = await productService.getAllProducts()
+    const products = await this.productService.getAllProducts()
     res.json(products)
   }
 
   async getProductById(req: Request, res: Response) {
     const id = parseInt(req.params.id)
-    const product = await productService.getProductById(id)
+    const product = await this.productService.getProductById(id)
     res.json(product)
   }
 
   async createProduct(req: Request, res: Response) {
     const productData = req.body
-    const product = await productService.createProduct(productData)
+    const product = await this.productService.createProduct(productData)
     res.json(product)
   }
 
   async updateProduct(req: Request, res: Response) {
     const id = parseInt(req.params.id)
     const productData = req.body
-    const product = await productService.updateProduct(id, productData)
+    const product = await this.productService.updateProduct(id, productData)
     res.json(product)
   }
 
   async deleteProduct(req: Request, res: Response) {
     const id = parseInt(req.params.id)
-    await productService.deleteProduct(id)
+    await this.productService.deleteProduct(id)
     res.json({ message: 'Product deleted successfully' })
   }
 }
