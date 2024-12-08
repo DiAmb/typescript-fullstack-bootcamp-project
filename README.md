@@ -64,6 +64,13 @@ This section contains the pull requests created as part of the bootcamp assignme
             - Mocked the `ProductsService` to simulate real-world API interactions and handle product fetching in all test scenarios.
 
 
+- [Pull Request Homework 6](https://github.com/DiAmb/typescript-fullstack-bootcamp-project/pull/4)
+    - **End-to-End (E2E) Testing**:
+        - **Test**: Navigates to the search products page, selects filters, and clicks on a product to view the details. Verifies that the product details page loads correctly, with the correct product displayed and the URL updated to reflect the product's ID.
+        - **Test**: Fills in filters, such as category selection (e.g., "Animals"), and performs a search. Verifies that the API responds with the correct data, and clicks on a product to ensure it loads the details page with the correct product.
+        - **Test**: Adds a product to the shopping cart, waits for the cart to update, and navigates to the cart page. Verifies that the correct product is displayed in the cart and that the price is accurate.
+        - **Test**: Verifies theme toggling between light and dark modes on the About page. Checks the initial theme, toggles to dark mode, and ensures that the class on the document element is updated correctly. Then, it toggles back to light mode and verifies the theme change.
+
 ## Get Started
 
 
